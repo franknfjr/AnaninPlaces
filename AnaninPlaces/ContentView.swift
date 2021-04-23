@@ -158,11 +158,9 @@ struct PopularRestaurantsView: View {
                         VStack(alignment: .leading, spacing: 6) {
                             
                             HStack {
-                                
                                 Text(restaurant.name)
                                 Spacer()
                                 Button(action: {}, label: {
-                                    
                                         Image(systemName: "ellipsis")
                                             .foregroundColor(.gray)
                                 })
