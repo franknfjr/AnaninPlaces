@@ -8,16 +8,51 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    init() {
+        UINavigationBar.appearance().largeTitleTextAttributes = [
+            .foregroundColor: UIColor.white
+        ]
+    }
+    
     var body: some View {
         NavigationView {
-            ScrollView {
-                AnaninCategoriesView()
+            
+            ZStack {
                 
-                PopularDestinationsView()
+                LinearGradient(gradient: Gradient(colors: [Color(#colorLiteral(red: 1, green: 0.6823529412, blue: 0.231372549, alpha: 1)), Color(#colorLiteral(red: 1, green: 0.4862745098, blue: 0.2509803922, alpha: 1))]), startPoint: .top, endPoint: .center)
+                    .ignoresSafeArea()
                 
-                PopularRestaurantsView()
+                Color(.init(white: 0.95, alpha: 1))
+                    .offset(y: 400)
                 
-                TrendingCreatorsView()
+                ScrollView {
+             
+                    HStack {
+                        Image(systemName: "magnifyingglass")
+                        Text("Where do you want to go?")
+                        Spacer()
+                    }.font(.system(size: 14, weight: .semibold))
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color(.init(white: 1, alpha: 0.3)))
+                    .cornerRadius(10)
+                    .padding(16)
+                    
+                    AnaninCategoriesView()
+                    
+                    VStack {
+                        
+                        PopularDestinationsView()
+                        
+                        PopularRestaurantsView()
+                        
+                        TrendingCreatorsView()
+                        
+                    }.background(Color(.init(white: 0.95, alpha: 1)))
+                    .cornerRadius(16)
+                    .padding(.top, 32)
+            }
                 
             }.navigationTitle("AnaninPlaces")
         }
@@ -51,14 +86,14 @@ struct AnaninCategoriesView: View {
                     VStack(spacing: 8) {
                         Image(systemName: category.imageName)
                             .font(.system(size: 22))
-                            .foregroundColor(.white)
+                            .foregroundColor(Color(#colorLiteral(red: 1, green: 0.6235294118, blue: 0.231372549, alpha: 1)))
                             .frame(width: 68, height: 68)
-                            .background(Color.blue)
+                            .background(Color.white)
                             .cornerRadius(68)
-                            .shadow(color: .gray, radius: 4, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 2)
                         Text(category.name)
                             .font(.system(size: 12, weight:.semibold))
                             .multilineTextAlignment(.center)
+                            .foregroundColor(.white)
                     }.frame(width: 68)
                 }
             }.padding(.horizontal)
@@ -110,10 +145,11 @@ struct PopularDestinationsView: View {
                             .font(.system(size: 12, weight:.semibold))
                             .padding(.horizontal, 12)
                             .padding(.bottom, 8)
+                            .foregroundColor(.gray)
                     }
-                    .background(Color(.init(white: 0.9, alpha: 1)))
+                    .background(Color.white)
                     .cornerRadius(5)
-                    .shadow(color: .gray, radius: 4, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 2)
+                    .shadow(color: .init(.sRGB, white: 0.9, opacity: 1), radius: 4, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 2)
                     .padding(.bottom)
                 }
             }.padding(.horizontal)
@@ -179,9 +215,9 @@ struct PopularRestaurantsView: View {
                     }
 
                         .frame(width: 240)
-                    .background(Color(.init(white: 0.9, alpha: 1)))
+                    .background(Color.white)
                         .cornerRadius(5)
-                        .shadow(color: .gray, radius: 4, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 2)
+                    .shadow(color: .gray, radius: 4, x: /*@START_MENU_TOKEN@*/0.0/*@END_MENU_TOKEN@*/, y: 2)
                         .padding(.bottom)
                 }
             }.padding(.horizontal)
