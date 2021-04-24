@@ -50,16 +50,37 @@ struct AnaninCategoriesView: View {
     }
 }
 
+struct Place: Decodable, Hashable {
+    let name,thumbnail : String
+}
+
 class SomeObservableObjectForUserInterface: ObservableObject {
     
     @Published var isLoading = true
-    @Published var places = [Int]()
+    @Published var places = [Place]()
+    @Published var errorMessage = ""
     
     init() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            self.isLoading = false
-            self.places = [1,2,3,4,5]
+        
+        guard let url = URL(string: "https://travel.letsbuildthatapp.com/travel_discovery/category?name=art") else {
+            return
         }
+        
+        URLSession.shared.dataTask(with: url) { (data, resp, err) in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                
+                guard let data = data else { return }
+                
+                do {
+                    self.places =  try JSONDecoder().decode([Place].self, from: data)
+                    
+                } catch {
+                    print("Failed to decode JSON: ", error)
+                    self.errorMessage = error.localizedDescription
+                }
+                self.isLoading = false
+            }
+        }.resume()
     }
 }
 
@@ -89,7 +110,7 @@ struct CategoryDetailsView: View {
             if vm.isLoading {
                 VStack {
                     ActivityIndicatorView()
-                    Text("Loading..")
+                    Text("Loading...")
                         .foregroundColor(.white)
                         .font(.system(size: 16, weight: .semibold))
                 }
@@ -98,18 +119,21 @@ struct CategoryDetailsView: View {
                 .cornerRadius(8)
                 
             } else {
-                ScrollView {
-                    ForEach(vm.places, id: \.self) { num in
-                        VStack(alignment: .leading, spacing: 0) {
-                            Image("wonder-woman")
-                                .resizable()
-                                .scaledToFill()
-                            Text("Wonder Woman")
-                                .font(.system(size: 12, weight: .semibold))
-                                .padding()
-                            
-                        }.asTitle()
-                        .padding()
+                ZStack {
+                    Text(vm.errorMessage)
+                    ScrollView {
+                        ForEach(vm.places, id: \.self) {  place in
+                            VStack(alignment: .leading, spacing: 0) {
+                                Image("wonder-woman")
+                                    .resizable()
+                                    .scaledToFill()
+                                Text(place.name)
+                                    .font(.system(size: 12, weight: .semibold))
+                                    .padding()
+                                
+                            }.asTitle()
+                            .padding()
+                        }
                     }
                 }
             }
