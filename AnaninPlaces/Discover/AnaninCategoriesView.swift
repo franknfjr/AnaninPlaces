@@ -25,32 +25,45 @@ struct AnaninCategoriesView: View {
                 
                 ForEach(categories, id: \.self) { category in
                     
-                    VStack(spacing: 8) {
-                        
-                        Image(systemName: category.imageName)
-                            .font(.system(size: 22))
-                            .foregroundColor(Color(#colorLiteral(red: 1, green: 0.6235294118, blue: 0.231372549, alpha: 1)))
-                            .frame(width: 68, height: 68)
-                            .background(Color.white)
-                            .cornerRadius(68)
-                        
-                        Text(category.name)
-                            .font(.system(size: 12, weight:.semibold))
-                            .multilineTextAlignment(.center)
-                            .foregroundColor(.white)
-                        
-                    }.frame(width: 68)
+                    NavigationLink(
+                        destination: CategoryDetailsView(),
+                        label: {
+                            VStack(spacing: 8) {
+                                
+                                Image(systemName: category.imageName)
+                                    .font(.system(size: 22))
+                                    .foregroundColor(Color(#colorLiteral(red: 1, green: 0.6235294118, blue: 0.231372549, alpha: 1)))
+                                    .frame(width: 68, height: 68)
+                                    .background(Color.white)
+                                    .cornerRadius(68)
+                                
+                                Text(category.name)
+                                    .font(.system(size: 12, weight:.semibold))
+                                    .multilineTextAlignment(.center)
+                                    .foregroundColor(.white)
+                                
+                            }.frame(width: 68)
+                        })
                 }
             }.padding(.horizontal)
         }
     }
 }
 
+struct CategoryDetailsView: View {
+    var body: some View {
+        ScrollView {
+            Text("Demo")
+        }.navigationBarTitle("Category", displayMode: .inline)
+    }
+}
+
 struct DiscoverView_Previews: PreviewProvider {
     static var previews: some View {
-        ZStack {
-            Color.orange
-            AnaninCategoriesView()
-        }
+        DiscoverView()
+//        ZStack {
+//            Color.orange
+//            AnaninCategoriesView()
+//        }
     }
 }

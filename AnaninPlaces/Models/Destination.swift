@@ -1,5 +1,5 @@
 //
-//  Dstination.swift
+//  Destination.swift
 //  AnaninPlaces
 //
 //  Created by Frank on 23/04/21.
