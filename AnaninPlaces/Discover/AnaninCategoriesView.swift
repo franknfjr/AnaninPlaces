@@ -53,13 +53,27 @@ struct AnaninCategoriesView: View {
 struct CategoryDetailsView: View {
     var body: some View {
         ScrollView {
-            Text("Demo")
+            ForEach(0..<5, id: \.self) { num in
+                VStack(alignment: .leading, spacing: 0) {
+                    Image("wonder-woman")
+                        .resizable()
+                        .scaledToFill()
+                    Text("Wonder Woman")
+                        .font(.system(size: 12, weight: .semibold))
+                        .padding()
+                    
+                }.asTitle()
+                .padding()
+            }
         }.navigationBarTitle("Category", displayMode: .inline)
     }
 }
 
 struct DiscoverView_Previews: PreviewProvider {
     static var previews: some View {
+        NavigationView {
+            CategoryDetailsView()
+        }
         DiscoverView()
 //        ZStack {
 //            Color.orange
