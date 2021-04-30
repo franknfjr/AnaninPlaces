@@ -7,6 +7,18 @@
 
 import SwiftUI
 
+struct NavigationLazyView<Content: View>: View {
+    let build: () -> Content
+    
+    init(_ build: @autoclosure @escaping () -> Content) {
+        self.build = build
+    }
+    
+    var body: Content {
+        build()
+    }
+}
+
 struct AnaninCategoriesView: View {
     
     let categories: [Category] = [
@@ -26,7 +38,7 @@ struct AnaninCategoriesView: View {
                 ForEach(categories, id: \.self) { category in
                     
                     NavigationLink(
-                        destination: CategoryDetailsView(name: category.name),
+                        destination: NavigationLazyView(CategoryDetailsView(name: category.name)),
                         label: {
                             VStack(spacing: 8) {
                                 
