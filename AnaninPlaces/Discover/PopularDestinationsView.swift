@@ -37,36 +37,49 @@ struct PopularDestinationsView: View {
                 HStack(spacing: 8) {
                     
                     ForEach(destinations, id: \.self) { destination in
+                        NavigationLink(
+                            destination: /*@START_MENU_TOKEN@*/Text("Destination")/*@END_MENU_TOKEN@*/,
+                            label: {PopularDestinationTile(destination: destination)
+                                .padding(.bottom)})
                         
-                        VStack(alignment: .leading, spacing: 0) {
-                            
-                            Image(destination.imageName)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 125, height: 125)
-                                .cornerRadius(4)
-                                .padding(.horizontal, 6)
-                                .padding(.vertical, 6)
-                            
-                            
-                            Text(destination.name)
-                                .font(.system(size: 12, weight:.semibold))
-                                .padding(.horizontal, 12)
-                            
-                            Text(destination.country)
-                                .font(.system(size: 12, weight:.semibold))
-                                .padding(.horizontal, 12)
-                                .padding(.bottom, 8)
-                                .foregroundColor(.gray)
-                        }
-                        .asTitle()
-                        .padding(.bottom)
                     }
                 }.padding(.horizontal)
             }
         }
     }
 }
+
+struct PopularDestinationTile: View {
+    
+    let destination: Destination
+    
+    var body: some View {
+        
+        VStack(alignment: .leading, spacing: 0) {
+            
+            Image(destination.imageName)
+                .resizable()
+                .scaledToFill()
+                .frame(width: 125, height: 125)
+                .cornerRadius(4)
+                .padding(.horizontal, 6)
+                .padding(.vertical, 6)
+            
+            
+            Text(destination.name)
+                .font(.system(size: 12, weight:.semibold))
+                .padding(.horizontal, 12)
+            
+            Text(destination.country)
+                .font(.system(size: 12, weight:.semibold))
+                .padding(.horizontal, 12)
+                .padding(.bottom, 8)
+                .foregroundColor(.gray)
+        }
+        .asTitle()
+    }
+}
+
 struct PopularDestinationsView_Previews: PreviewProvider {
     static var previews: some View {
         DiscoverView()
