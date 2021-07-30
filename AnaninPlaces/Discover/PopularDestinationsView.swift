@@ -103,7 +103,7 @@ struct PopularDestinationDetailsView: View {
             }.padding(.horizontal)
 
             Map(coordinateRegion: $region)
-                .frame(height: 200)
+                .frame(height: 300)
             
         }.navigationBarTitle(destination.name, displayMode: .inline)
     }

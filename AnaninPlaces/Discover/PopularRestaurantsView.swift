@@ -87,7 +87,7 @@ struct PopularRestaurantsView: View {
 
 struct PopularRestaurantsView_Previews: PreviewProvider {
     static var previews: some View {
-        DiscoverView()
+        // DiscoverView()
         PopularRestaurantsView()
     }
 }
